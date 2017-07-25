@@ -212,18 +212,18 @@ def crawl_codechef():
             result = ccfirebase.post('/codechef', hm)
 
 
-def delete_contents():
-    with open(HE_file_path, 'w') as file:
-        pass
-    file.close()
-    with open(HR_file_path, 'w') as file:
-        pass
-    file.close()
-    with open(CC_file_path, 'w') as file:
-        pass
-    file.close()
+# def delete_contents():
+#     with open(HE_file_path, 'w') as file:
+#         pass
+#     file.close()
+#     with open(HR_file_path, 'w') as file:
+#         pass
+#     file.close()
+#     with open(CC_file_path, 'w') as file:
+#         pass
+#     file.close()
 
-delete_contents()
+# delete_contents()
 
 display = Display(visible=0, size=(800, 600))
 display.start()
