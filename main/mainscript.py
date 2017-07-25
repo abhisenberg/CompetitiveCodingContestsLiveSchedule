@@ -1,4 +1,5 @@
 from selenium import webdriver
+from pyvirtualdisplay import Display
 from bs4 import BeautifulSoup
 from firebase import firebase
 from multiprocessing.dummy import Pool as ThreadPool
@@ -23,20 +24,26 @@ def crawl(url):
 
 def crawl_hackerrank():
 
-    driver_1 = webdriver.PhantomJS()
+    driver_1 = webdriver.Firefox()
 
     # if not os.path.isfile(HR_file_path):
-    if os.stat(HR_file_path).st_size == 0:
-        driver_1.get('https://www.hackerrank.com/contests')
+    # if os.stat(HR_file_path).st_size == 0:
+    #     driver_1.get('https://www.hackerrank.com/contests')
+    #
+    #     print "Downloading page source of Hackerrank..."
+    #
+    #     page_source = driver_1.page_source
+    #     with open(HR_file_path, 'w') as file_1:
+    #         file_1.write(page_source.encode('utf8'))
+    #     file_1.close()
+    #
+    # soup = BeautifulSoup(open(HR_file_path, 'r'), "lxml")
 
-        print "Downloading page source of Hackerrank..."
+    driver_1.get('https://www.hackerrank.com/contests')
+    page_source_1 = driver_1.page_source
 
-        page_source = driver_1.page_source
-        with open(HR_file_path, 'w') as file_1:
-            file_1.write(page_source.encode('utf8'))
-        file_1.close()
+    soup = BeautifulSoup(page_source_1, "lxml")
 
-    soup = BeautifulSoup(open(HR_file_path, 'r'), "lxml")
     active_contests = soup.find_all("div", class_="active_contests active-contest-container fnt-wt-600")
 
     hrfirebase = firebase.FirebaseApplication('https://competitivecontestsschedule.firebaseio.com/', None)
@@ -76,24 +83,27 @@ def crawl_hackerrank():
     print result
 
 
-
 def crawl_hackerearth():
-
-    driver_2 = webdriver.PhantomJS()
+    driver_2 = webdriver.Firefox()
     # if not os.path.isfile(HE_file_path):
-    if os.stat(HE_file_path).st_size == 0:
-        print "Downloading page source of Hackerearth..."
+    # if os.stat(HE_file_path).st_size == 0:
+    #     print "Downloading page source of Hackerearth..."
+    #
+    #     driver_2.get('https://www.hackerearth.com/challenges/')
+    #     page_source = driver_2.page_source
+    #
+    #     with open(HE_file_path, 'w') as file_2:
+    #         file_2.write(page_source.encode('utf8'))
+    #     file_2.close()
+    #
+    #     # driver_2.quit()
+    #
+    # soup = BeautifulSoup(open(HE_file_path), 'lxml')
 
-        driver_2.get('https://www.hackerearth.com/challenges/')
-        page_source = driver_2.page_source
+    driver_2.get('https://www.hackerearth.com/challenges/')
+    page_source_2 = driver_2.page_source
 
-        with open(HE_file_path, 'w') as file_2:
-            file_2.write(page_source.encode('utf8'))
-        file_2.close()
-        driver_2.close()
-        driver_2.quit()
-
-    soup = BeautifulSoup(open(HE_file_path), 'lxml')
+    soup = BeautifulSoup(page_source_2, "lxml")
 
     hefirebase = firebase.FirebaseApplication('https://competitivecontestsschedule.firebaseio.com/', None)
     name_for_db = ""
@@ -156,25 +166,30 @@ def crawl_hackerearth():
 
         print "hackerearth result -> ",
         print result
+    driver_2.close()
 
 
 def crawl_codechef():
-
-    driver_3 = webdriver.PhantomJS()
+    driver_3 = webdriver.Firefox()
     # if not os.path.isfile(CC_file_path):
-    if os.stat(CC_file_path).st_size == 0:
-        print "Downloading page source of Codechef"
+    # if os.stat(CC_file_path).st_size == 0:
+    #     print "Downloading page source of Codechef"
+    #
+    #     driver_3.get('https://www.codechef.com/contests')
+    #     page_source = driver_3.page_source
+    #
+    #     with open(CC_file_path, 'w') as file_3:
+    #         file_3.write(page_source.encode('utf8'))
+    #     file_3.close()
+    #     driver_3.close()
+    #     # driver_3.quit()
+    #
+    # soup = BeautifulSoup(open(CC_file_path), 'lxml')
 
-        driver_3.get('https://www.codechef.com/contests')
-        page_source = driver_3.page_source
+    driver_3.get('https://www.codechef.com/contests')
+    page_source_3 = driver_3.page_source
 
-        with open(CC_file_path, 'w') as file_3:
-            file_3.write(page_source.encode('utf8'))
-        file_3.close()
-        driver_3.close()
-        driver_3.quit()
-
-    soup = BeautifulSoup(open(CC_file_path), 'lxml')
+    soup = BeautifulSoup(page_source_3, "lxml")
 
     tables = soup.find_all("table", class_="dataTable")
 
@@ -210,10 +225,12 @@ def delete_contents():
 
 delete_contents()
 
+display = Display(visible=0, size=(800, 600))
+display.start()
 
-# pool = ThreadPool(3)
-# results = pool.map(crawl, url)
-# pool.close()
-# pool.join()
+pool = ThreadPool(3)
+results = pool.map(crawl, url)
+pool.close()
+pool.join()
 
-crawl_hackerrank()
+# crawl_hackerrank()
