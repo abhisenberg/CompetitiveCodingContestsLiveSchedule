@@ -10,3 +10,4 @@ selenium==3.4.3
 six==1.10.0
 urllib3==1.21.1
 virtualenv==15.1.0
+PyVirtualDisplay==0.2.1
