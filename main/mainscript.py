@@ -5,9 +5,9 @@ from firebase import firebase
 from multiprocessing.dummy import Pool as ThreadPool
 import os
 
-HR_file_path = '/home/abheisenberg/PycharmProjects/CCCSchedule/stored_htmls/HRSource.txt'
-HE_file_path = '/home/abheisenberg/PycharmProjects/CCCSchedule/stored_htmls/HESource.txt'
-CC_file_path = '/home/abheisenberg/PycharmProjects/CCCSchedule/stored_htmls/CCSource.txt'
+# HR_file_path = '/home/abheisenberg/PycharmProjects/CCCSchedule/stored_htmls/HRSource.txt'
+# HE_file_path = '/home/abheisenberg/PycharmProjects/CCCSchedule/stored_htmls/HESource.txt'
+# CC_file_path = '/home/abheisenberg/PycharmProjects/CCCSchedule/stored_htmls/CCSource.txt'
 
 url = ['HR', 'CC', 'HE']
 
@@ -24,7 +24,7 @@ def crawl(url):
 
 def crawl_hackerrank():
 
-    driver_1 = webdriver.Firefox()
+    driver_1 = webdriver.Firefox(executable_path='/app/geckodriver')
 
     # if not os.path.isfile(HR_file_path):
     # if os.stat(HR_file_path).st_size == 0:
@@ -84,7 +84,7 @@ def crawl_hackerrank():
 
 
 def crawl_hackerearth():
-    driver_2 = webdriver.Firefox()
+    driver_2 = webdriver.Firefox(executable_path='/app/geckodriver')
     # if not os.path.isfile(HE_file_path):
     # if os.stat(HE_file_path).st_size == 0:
     #     print "Downloading page source of Hackerearth..."
@@ -170,7 +170,7 @@ def crawl_hackerearth():
 
 
 def crawl_codechef():
-    driver_3 = webdriver.Firefox()
+    driver_3 = webdriver.Firefox(executable_path='/app/geckodriver')
     # if not os.path.isfile(CC_file_path):
     # if os.stat(CC_file_path).st_size == 0:
     #     print "Downloading page source of Codechef"
