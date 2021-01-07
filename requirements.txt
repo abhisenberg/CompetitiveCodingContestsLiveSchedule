@@ -3,7 +3,7 @@ certifi==2017.4.17
 chardet==3.0.4
 html5lib==0.999
 idna==2.5
-lxml==3.5.0
+lxml==4.6.2
 python-firebase==1.2
 requests==1.1.0
 selenium==3.4.3
